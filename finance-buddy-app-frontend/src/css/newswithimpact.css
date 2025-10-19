@@ -1,0 +1,108 @@
+/* Global Dark Background and Font */
+body,
+.container {
+  background-color: #0b0f14;
+  color: #e0f7fa;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Heading Styling */
+h3 {
+  color: #00ffe7;
+  border-bottom: 2px solid #00c3ff;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+/* Card Styles */
+.news-list .card {
+  background-color: #111820;
+  border: 1px solid #00c3ff;
+  border-radius: 10px;
+  color: #e0f7fa;
+  transition: transform 0.3s ease;
+}
+
+.news-list .card:hover {
+  transform: scale(1.01);
+  border-color: #00ffe7;
+}
+
+.card-title {
+  color: #00ffe7;
+  font-size: 1.25rem;
+}
+
+.card-text {
+  color: #d0e6f2;
+  font-size: 0.95rem;
+}
+
+/* Buttons */
+.btn-outline-primary {
+  border-color: #00c3ff;
+  color: #00c3ff;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+  background-color: #00c3ff;
+  color: #0b0f14;
+  font-weight: bold;
+}
+
+/* Modal */
+.modal-content {
+  background-color: #121c24;
+  color: #d4f9f9;
+  border: 1px solid #00ffe7;
+}
+
+.modal-header,
+.modal-footer {
+  border-color: #00c3ff;
+}
+
+.modal-title {
+  color: #00ffe7;
+}
+
+/* Preformatted Report Text */
+pre {
+  background-color: #0f1a23;
+  color: #e0f7fa;
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 4px solid #00c3ff;
+}
+
+/* Spinner */
+.spinner-border {
+  color: #00ffe7;
+}
+
+/* Style the modal close button */
+.btn-close {
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(180deg) brightness(200%) contrast(100%);
+  opacity: 1;
+}
+
+.btn-success {
+  background-color: #00ffe7;;
+  border: none;
+  color: #000;
+  font-weight: bold;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-success:hover {
+  background-color: #00ffe7;
+  color: #000;
+}
+
+/* Optional: On hover, change color */
+.btn-close:hover {
+  filter: brightness(0) saturate(100%) invert(70%) sepia(25%) saturate(743%) hue-rotate(160deg) brightness(115%) contrast(150%);
+}

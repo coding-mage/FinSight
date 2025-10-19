@@ -1,0 +1,81 @@
+.auth-container {
+  height: 100vh;
+  background: url('https://images.unsplash.com/photo-1623692501403-0c7998b2ab00?auto=format&fit=crop&w=1470&q=80') center/cover no-repeat;
+  background-attachment: fixed;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  color: #ffffff;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Dark glass effect */
+.bg-glass {
+  background: rgba(18, 18, 18, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 30px;
+  animation: fadeSlideUp 0.7s ease-in-out;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 0 15px rgba(0, 255, 200, 0.2);
+}
+
+/* Gradient text with money colors */
+.text-gradient {
+  background: linear-gradient(to right, #00ffab, #00c9ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+}
+
+/* Animation utilities */
+.fade-in {
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Button animation */
+.btn-outline-light {
+  color: #00ffd5;
+  border-color: #00ffd5;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-outline-light:hover {
+  background-color: #00ffd5;
+  color: #000;
+  transform: scale(1.05);
+}
+
+/* Optional: Smooth form field styling for dark mode */
+.form-control {
+  background-color: #2c2c2c;
+  border: 1px solid #555;
+  color: #fff;
+}
+
+.form-control::placeholder {
+  color: #aaa;
+}

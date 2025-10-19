@@ -1,0 +1,61 @@
+/* src/css/dashboard.css */
+.dashboard-wrapper {
+  padding: 40px 20px;
+  min-height: 100vh;
+  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+  color: #fff;
+}
+
+.dashboard-title {
+  text-align: center;
+  margin-bottom: 50px;
+  font-size: 2.5rem;
+}
+
+.text-gradient {
+  background: linear-gradient(to right, #00b4d8, #0077b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+}
+
+.feature-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 35px;
+  min-height: 200px;
+  cursor: pointer;
+  box-shadow: 0 0 25px rgba(0,0,0,0.3);
+  transition: all 0.3s ease-in-out;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 30px rgba(0,0,0,0.4);
+}
+
+.feature-card-body h5 {
+  color: #00b4d8;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.feature-card-body p {
+  font-size: 1.1rem;
+  color: #ddd;
+}
+
+.go-link {
+  color: #00b4d8;
+  font-weight: 500;
+  display: inline-block;
+  margin-top: 15px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.feature-card:hover .go-link {
+  transform: translateX(5px);
+}

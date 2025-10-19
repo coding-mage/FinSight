@@ -1,0 +1,186 @@
+/* ===== GLOBAL RESET ===== */
+body,
+.container {
+  background-color: #0b0f14;
+  color: #e0fdfd;
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+  transition: all 0.3s ease;
+  min-height: 100vh;
+  padding-bottom: 50px;
+}
+
+/* ===== HEADERS ===== */
+h2, h5 {
+  color: #00ffe7;
+  text-align: left;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 8px #00c3ff;
+  font-weight: 600;
+}
+
+/* ===== FORMS & INPUTS ===== */
+.form-control,
+.form-select {
+  background-color: #141d2b;
+  border: 1px solid #00c3ff;
+  color: #e0fdfd;
+  padding: 10px;
+  transition: 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+  outline: none;
+  border-color: #00ffe7;
+  box-shadow: 0 0 10px rgba(0, 255, 231, 0.5);
+}
+
+.form-control::placeholder {
+  color: #8feef1;
+}
+
+label {
+  color: #8feef1;
+  font-weight: 500;
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+  color: #00ffe7;
+  background-color: transparent;
+  border: 1px solid #00c3ff;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #00c3ff;
+  color: #0b0f14;
+  box-shadow: 0 0 10px #00ffe7, 0 0 20px #00c3ff inset;
+}
+
+/* ===== UPLOAD SECTION ===== */
+input[type="file"] {
+  background-color: #101827;
+  border: 1px solid #00c3ff;
+  padding: 10px;
+  color: #00ffe7;
+  transition: border 0.3s ease;
+}
+
+.custom-upload-btn {
+  background-color: #00ffe7;;
+  border: none;
+  color: #000;
+  font-weight: bold;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.custom-upload-btn:hover {
+  background-color: #00ffe7;
+  color: #000;
+}
+
+
+/* ===== DROPDOWN MENU ===== */
+select.form-select option {
+  background-color: #101827;
+  color: #e0fdfd;
+}
+
+/* ===== FILTER SECTION ===== */
+.filter-section {
+  background-color: #141d2b;
+  border: 1px solid #00c3ff;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 195, 255, 0.1);
+}
+
+/* ===== TABLE STYLING ===== */
+.table {
+  background-color: #111827;
+  color: #d9ffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 255, 231, 0.1);
+}
+
+.table thead {
+  background-color: #162030;
+  color: #00ffe7;
+  text-shadow: 0 0 6px #00c3ff;
+  font-weight: bold;
+}
+
+.table th,
+.table td {
+  background-color: #162030;
+  border: 1px solid #00c3ff;
+  padding: 0.75rem;
+  color: #00ffe7;
+  vertical-align: middle;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.table tbody tr:hover {
+  background-color: rgba(0, 195, 255, 0.1);
+}
+
+.table tbody tr.income-row {
+  background-color: rgba(0, 255, 231, 0.07);
+}
+
+.table tbody tr.expense-row {
+  background-color: rgba(255, 50, 120, 0.08);
+}
+
+/* ===== CHART CONTAINER ===== */
+.chart-container {
+  background-color: #101520;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 12px;
+  border: 1px solid #00c3ff;
+  box-shadow: 0 0 15px rgba(0, 255, 231, 0.1);
+  color:white;
+}
+
+/* ===== SUMMARY & SUGGESTIONS ===== */
+p {
+  color: #c0fbfb;
+  line-height: 1.6;
+}
+
+.suggestions-container {
+  background-color: #141d2b;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #00c3ff;
+  color: #00ffe7;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0b0f14;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00c3ff;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00ffe7;
+}
+
+.summary-text {
+  color: #00ffe7;
+  font-weight: 600;
+}
