@@ -1,0 +1,75 @@
+/* quizhistory.css */
+
+body {
+  background-color: transparent;
+  color: #e0f7fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 2rem;
+}
+
+h3 {
+  color: #00ffe7;
+  text-align: left;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 8px rgba(0, 255, 231, 0.4);
+}
+
+/* Each quiz card */
+.quiz-card {
+  background-color: transparent;
+  border-left: 5px solid #00c3ff;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(0, 195, 255, 0.1);
+  transition: transform 0.2s;
+}
+
+.quiz-card:hover {
+  transform: scale(1.01);
+  box-shadow: 0 0 18px rgba(0, 255, 231, 0.2);
+}
+
+h5 {
+  color: #00c3ff;
+  margin-bottom: 0.75rem;
+}
+
+p {
+  color: #ffffff;
+}
+
+.question-block {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background-color: #232323;
+  border-radius: 6px;
+}
+
+.question-block strong {
+  color: #00c3ff;
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.text-success {
+  color: #00ffb3;
+  font-weight: 500;
+}
+
+.text-danger {
+  color: #ff6666;
+  font-weight: 500;
+}
+
+em {
+  color: #ccc;
+  font-style: italic;
+  display: block;
+  margin-top: 0.25rem;
+}

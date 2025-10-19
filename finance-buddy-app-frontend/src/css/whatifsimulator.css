@@ -1,0 +1,102 @@
+/* whatif.css */
+
+body {
+  background-color: #121212;
+  color: #e0f7fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 2rem;
+}
+
+/* Title */
+h2 {
+  color: #00ffe7;
+  text-shadow: 0 0 8px rgba(0, 255, 231, 0.4);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Form Input */
+.form-control {
+  background-color: #1e1e1e;
+  border: 1px solid #00c3ff;
+  color: #ffffff;
+  padding: 0.75rem;
+  border-radius: 6px;
+}
+
+.form-control:focus {
+  background-color: #222;
+  border-color: #00ffe7;
+  box-shadow: 0 0 6px rgba(0, 255, 231, 0.4);
+  color: #fff;
+}
+
+/* Button */
+.btn-primary {
+border-radius: 10px;
+  background-color: black ;
+  border-color: #00c3ff;
+  color: #00ffe7;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  box-shadow: 0 0 12px rgba(0, 195, 255, 0.1);
+}
+
+.btn-primary:hover {
+  background-color: #00ffe7;
+  border-color: #00ffe7;
+  color: #000;
+}
+
+/* Alert */
+.alert-danger {
+  background-color: #2a0000;
+  border-color: #ff6666;
+  color: #ff9999;
+}
+
+/* Card */
+.card {
+  background-color: #1a1a1a;
+  color: #e0f7fa;
+  border-left: 5px solid #00c3ff;
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(0, 195, 255, 0.1);
+}
+
+.card-header {
+  background-color: #1e1e1e;
+  border-bottom: 1px solid #00c3ff;
+  color: #00ffe7;
+  font-weight: bold;
+}
+
+/* Accordion */
+.accordion-item {
+  background-color: #232323;
+  border: 1px solid #00c3ff;
+  margin-bottom: 0.5rem;
+  border-radius: 6px;
+}
+
+.accordion-button {
+  background-color: #1c1c1c;
+  color: #1c1c1c;
+  font-weight: 500;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: #00c3ff;
+  color: #000;
+}
+
+.accordion-body {
+  background-color: #292929;
+  color: #e0f7fa;
+  white-space: pre-wrap;
+}
