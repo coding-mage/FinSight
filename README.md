@@ -141,15 +141,6 @@ Files & Uploads
 - Gemini / AI errors: verify `GEMINI_API_KEY` and that the API quota/permissions are valid.
 - Tesseract OCR failures: ensure `eng.traineddata` is present and readable.
 
-## Tests
-
-No automated tests are included by default. You can run the frontend's `npm test` to start React tests scaffolding.
-
-
-## Contact
-
-If you have questions or need help running the project, open an issue in the repository or contact the maintainers.
-
 ---
 
 Happy hacking — this README covers the basics for getting the app running locally.
