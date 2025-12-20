@@ -4,7 +4,6 @@ import mongoose from 'mongoose';
 import authRoutes from './routes/authRoutes.js';
 import connectDB from './config/db.js';
 import cors from 'cors'
-import financeRoutes from './routes/financeRoutes.js';
 import authenticateJWT from './middleware/authMiddleware.js';
 import expenseRoutes from './routes/expenseRoutes.js';
 import incomeRoutes from './routes/incomeRoutes.js';
@@ -60,7 +59,7 @@ app.use('/api/quiz', authenticateJWT, quizRoutes);
 
 app.use('/api/challenge', authenticateJWT, challengeRoutes);
 
-app.use('/api/finance', authenticateJWT, financeRoutes);
+// financeRoutes was removed as it duplicated endpoints and wasn't used by the frontend.
 
 app.use('/api/expenses',authenticateJWT, expenseRoutes);
 app.use('/api/incomes', authenticateJWT, incomeRoutes);
