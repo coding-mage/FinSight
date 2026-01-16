@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+.env
+.venv/
+venv/
+
+# OS files
+.DS_Store
+
+# IDEs
+.vscode/
+.idea/
+
+# Audio / generated media
+*.wav
+*.mp3
+
+# Uploads / temp
+uploads/
+tmp/
+
+# Logs
+*.log
+
+# Ollama models (local only)
+.ollama/
