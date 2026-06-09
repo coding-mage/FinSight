@@ -10,7 +10,7 @@ router.post("/generate", async (req, res) => {
   const { userId, currentPrompt } = req.body;
 
   try {
-    const pastChallenges = await Challenge.find({ userId }).sort({ createdAt: -1 });
+    const pastChallenges = await Challenge.find({ userId }).sort({ createdAt: -1 }).limit(10);
 
     const previousPrompts = pastChallenges.map(ch => `"${ch.prompt}"`).join(', ');
     const additionalAvoidPrompt = currentPrompt ? `Also, do not repeat or slightly modify the following challenge: "${currentPrompt}".` : '';
@@ -40,37 +40,40 @@ router.post('/complete', async (req, res) => {
   try {
     // Mark challenge as completed
     const challenge = await Challenge.findByIdAndUpdate(challengeId, { completed: true }, { new: true });
-    const challenges = await Challenge.find({ userId, completed: true }).sort({ createdAt: -1 });
+    
+    // Get existing badge names to avoid duplicates
+    const existingBadges = await Badge.find({ userId }).select('name');
+    const badgeNames = existingBadges.map(b => b.name);
+
     // Prompt AI to generate badge details
-    const prompt = `Create a fun and creative badge for completing this financial challenge: "${challenge.prompt}". Return a JSON object with "name", "icon" (emoji or short text), and "description". Example:
+    const prompt = `Create a fun and creative badge for completing this financial challenge: "${challenge.prompt}".
+Return a JSON object with "name", "icon" (emoji or short text), and "description". Example:
 {
   "name": "Budget Master",
   "icon": "💰",
   "description": "Awarded for mastering your budget challenges!"
 }
   
-Please keep in mind that you should not generate any of the following challenges as they are already taken up by the user previously:
-  ${JSON.stringify(challenges)}`;
+Please do not repeat or duplicate any of the following badge names already earned by the user:
+${badgeNames.join(', ')}`;
 
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const model = genAI.getGenerativeModel({ 
+      model: 'gemini-1.5-flash',
+      generationConfig: { responseMimeType: "application/json" }
+    });
     const result = await model.generateContent(prompt);
     const aiText = result.response.text();
 
     console.log(aiText);
 
-    // Parse JSON from AI response (basic regex to extract JSON)
-    const match = aiText.match(/\{[\s\S]*\}/);
-    let badgeData = { name: 'Financial Hero', icon: '🏅', description: 'Awarded for completing a challenge!' };
-    if (match) {
-      badgeData = JSON.parse(match[0]);
-    }
+    let badgeData = JSON.parse(aiText.trim());
 
     // Save badge to DB
     const badge = new Badge({ 
       userId, 
-      name: badgeData.name, 
-      icon: badgeData.icon, 
-      description: badgeData.description,
+      name: badgeData.name || 'Financial Hero', 
+      icon: badgeData.icon || '🏅', 
+      description: badgeData.description || 'Awarded for completing a challenge!',
       earnedAt: new Date()
     });
     await badge.save();
@@ -78,7 +81,20 @@ Please keep in mind that you should not generate any of the following challenges
     res.json({ message: 'Challenge completed and badge earned!', badge });
   } catch (err) {
     console.error('Completion failed:', err);
-    res.status(500).json({ error: 'Failed to complete challenge' });
+    // Graceful fallback to avoid server crash on API issues
+    try {
+      const fallbackBadge = new Badge({ 
+        userId, 
+        name: 'Financial Hero', 
+        icon: '🏅', 
+        description: 'Awarded for completing a challenge!',
+        earnedAt: new Date()
+      });
+      await fallbackBadge.save();
+      res.json({ message: 'Challenge completed and badge earned!', badge: fallbackBadge });
+    } catch (saveErr) {
+      res.status(500).json({ error: 'Failed to complete challenge' });
+    }
   }
 });
 

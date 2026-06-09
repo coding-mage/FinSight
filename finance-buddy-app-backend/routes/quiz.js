@@ -10,7 +10,7 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 router.post('/generate', async (req, res) => {
   const { userId, topic = 'finance' } = req.body;
 
-  const prompt = `Generate a gamified multiple-choice quiz on ${topic}. Return 5 questions with 4 options each, one correct answer, and a detailed explanation. Return as JSON in this format:
+  const prompt = `Generate a gamified multiple-choice quiz on ${topic}. Return exactly 5 questions with 4 options each, one correct answer, and a detailed explanation. Return as a JSON array matching this schema:
 [
   {
     "question": "...",
@@ -21,12 +21,14 @@ router.post('/generate', async (req, res) => {
 ]`;
 
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ 
+      model: "gemini-1.5-flash",
+      generationConfig: { responseMimeType: "application/json" }
+    });
     const result = await model.generateContent(prompt);
     const aiText = result.response.text();
 
-    const match = aiText.match(/```json([\s\S]*?)```/) || aiText.match(/```([\s\S]*?)```/);
-    const quizData = match ? JSON.parse(match[1]) : [];
+    const quizData = JSON.parse(aiText.trim());
 
     // await QuizAttempt.create({
     //   userId,

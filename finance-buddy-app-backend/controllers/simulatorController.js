@@ -1,5 +1,7 @@
 // controllers/simulatorController.js
-import { getGeminiPrediction } from '../utils/gemini.js';
+import { GoogleGenerativeAI } from '@google/generative-ai';
+
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 export const simulateScenario = async (req, res) => {
   try {
@@ -10,21 +12,32 @@ export const simulateScenario = async (req, res) => {
 You are a highly analytical economics and finance expert. A user will describe a hypothetical financial or policy scenario. Your task is to analyze the impacts across various industries, employment types, and economic sectors.
 
 For the scenario:
-
 "${scenario}"
 
-Return a structured, comprehensive analysis with these sections:
-
-Please respond in clear sections using markdown-style headings.
-
-
-Provide a clear and realistic prediction of the financial consequences, including possible gains/losses, risks, and tips. Keep it concise and helpful.
-Return the response in json format.
+Return a JSON object containing the structured, comprehensive analysis in this exact format:
+{
+  "analysis": {
+    "scenario": "${scenario}",
+    "sections": [
+      {
+        "heading": "Heading Name",
+        "content": "Detailed text content..."
+      }
+    ]
+  }
+}
 `;
 
-    const response = await getGeminiPrediction(prompt);
+    const model = genAI.getGenerativeModel({
+      model: "gemini-1.5-flash",
+      generationConfig: { responseMimeType: "application/json" }
+    });
 
-    res.status(200).json({ prediction: response });
+    const result = await model.generateContent(prompt);
+    const text = await result.response.text();
+    const parsed = JSON.parse(text.trim());
+
+    res.status(200).json({ prediction: parsed });
   } catch (error) {
     console.error('Simulation error:', error.message);
     res.status(500).json({ error: 'Failed to simulate scenario' });

@@ -45,13 +45,15 @@ const WhatIfSimulator = () => {
         }
       );
 
-      // The prediction is a string that contains JSON wrapped in triple backticks and "json"
-      // Extract JSON string inside ```json ... ```
-      const rawPrediction = res.data.prediction || '';
-      const jsonMatch = rawPrediction.match(/```json\s*([\s\S]*?)```/);
-      if (!jsonMatch) throw new Error('Invalid prediction format');
-
-      const parsed = JSON.parse(jsonMatch[1]);
+      let parsed;
+      const rawPrediction = res.data.prediction;
+      if (rawPrediction && typeof rawPrediction === 'object') {
+        parsed = rawPrediction;
+      } else {
+        const jsonMatch = (rawPrediction || '').match(/```json\s*([\s\S]*?)```/);
+        if (!jsonMatch) throw new Error('Invalid prediction format');
+        parsed = JSON.parse(jsonMatch[1]);
+      }
       setAnalysis(parsed.analysis);
     } catch (err) {
       console.error(err);

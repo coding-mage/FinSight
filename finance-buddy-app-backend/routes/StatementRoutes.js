@@ -51,5 +51,8 @@ const upload = multer({
 router.post('/upload', upload.single('statement'), statementController.uploadStatement);
 router.get('/', statementController.getAllStatements);
 router.get('/:id', statementController.getStatementById);
+router.post('/:id/chat', statementController.chatWithStatement);
+router.get('/:id/cashflow', statementController.getCashFlowProjection);
+router.get('/:id/budget', statementController.getSmartBudget);
 
 export default router;
