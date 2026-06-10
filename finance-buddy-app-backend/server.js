@@ -43,9 +43,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 app.use('/uploads', express.static('uploads'));
 
-app.use(cors({
-    origin: 'http://localhost:3000'
-  }));
+app.use(cors());
 
   app.use((req, res, next) => {
     console.log('CORS headers set!');
