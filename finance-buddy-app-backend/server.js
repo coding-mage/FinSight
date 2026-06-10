@@ -1,8 +1,13 @@
-import express from 'express';
 import dotenv from 'dotenv';
+dotenv.config(); // Initialize environment variables first
+
+import './utils/mongooseMock.js'; // Setup database mocks if offline
+
+import express from 'express';
 import mongoose from 'mongoose';
 import authRoutes from './routes/authRoutes.js';
 import connectDB from './config/db.js';
+
 import cors from 'cors'
 import financeRoutes from './routes/financeRoutes.js';
 import authenticateJWT from './middleware/authMiddleware.js';

@@ -7,7 +7,8 @@ import config from '../config/config.js';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { redactPII } from '../utils/piiRedactor.js';
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY || "MOCK_KEY";
+const genAI = new GoogleGenerativeAI(apiKey);
 
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
@@ -62,6 +63,15 @@ export const aggregateTransactions = (transactions) => {
 };
 
 export async function processWithGemini(rawText) {
+  if (apiKey === "MOCK_KEY") {
+    console.log("Warning: GEMINI_API_KEY not set. Using mock bank statement transactions.");
+    return [
+      { amount: 1500, date: "10-06-2026", vendor: "Supermarket", category: "food", type: "expense" },
+      { amount: 120, date: "09-06-2026", vendor: "Cafe Coffee", category: "food", type: "expense" },
+      { amount: 45000, date: "01-06-2026", vendor: "Tech Corp Salary", category: "salary", type: "income" },
+      { amount: 2500, date: "02-06-2026", vendor: "Gas Station", category: "transport", type: "expense" }
+    ];
+  }
   const model = genAI.getGenerativeModel({
     model: "gemini-1.5-flash",
     generationConfig: { responseMimeType: "application/json" }
@@ -107,6 +117,12 @@ ${rawText}
 }
 
 const generateInsights = async (transactions) => {
+  if (apiKey === "MOCK_KEY") {
+    return {
+      summary: "Based on the statement, you have a solid income flow with regular salary. Food and transport represent your highest expense categories.",
+      suggestions: "• Try to limit food delivery and dining out.\n• Set aside 20% of your salary into high-yield savings immediately on receipt."
+    };
+  }
   const model = genAI.getGenerativeModel({
     model: "gemini-1.5-flash",
     generationConfig: { responseMimeType: "application/json" }
@@ -257,6 +273,10 @@ const chatWithStatement = async (req, res) => {
     }
 
     const aggregated = aggregateTransactions(statement.transactions);
+
+    if (apiKey === "MOCK_KEY") {
+      return res.json({ reply: `[Mock AI Assistant] You asked: "${message}". Currently in offline mode. Your net balance is ₹${aggregated.netBalance.toFixed(2)}, total income is ₹${aggregated.totalIncome.toFixed(2)}, and total expense is ₹${aggregated.totalExpense.toFixed(2)}.` });
+    }
 
     const systemPrompt = `You are a helpful personal financial assistant. The user is asking questions about their uploaded bank statement.
 Here is the summary of their statement:

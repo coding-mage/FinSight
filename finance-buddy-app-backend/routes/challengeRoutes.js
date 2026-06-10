@@ -4,10 +4,38 @@ import Badge from '../models/Badge.js';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 const router = express.Router();
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY || "MOCK_KEY";
+const genAI = new GoogleGenerativeAI(apiKey);
+const isMock = apiKey === "MOCK_KEY";
 
 router.post("/generate", async (req, res) => {
   const { userId, currentPrompt } = req.body;
+
+  if (isMock) {
+    const mockChallenges = [
+      "Track every rupee you spend for 3 days.",
+      "Save ₹500 this week by cooking at home.",
+      "Review and cancel one unused subscription today.",
+      "Create a monthly budget and stick to it for the next 7 days.",
+      "Put ₹1000 into your savings account immediately.",
+      "Buy only essential groceries and skip snacks for 3 days.",
+      "Find one way to reduce your electricity bill this month.",
+      "Read a personal finance article or watch an educational video today.",
+      "Set a financial goal for the next 6 months and write it down.",
+      "Identify three unnecessary expenses from last week."
+    ];
+    let filtered = mockChallenges;
+    try {
+      const pastChallenges = await Challenge.find({ userId }).sort({ createdAt: -1 }).limit(10);
+      const pastPrompts = pastChallenges.map(ch => ch.prompt);
+      filtered = mockChallenges.filter(ch => !pastPrompts.includes(ch) && ch !== currentPrompt);
+      if (filtered.length === 0) filtered = mockChallenges;
+    } catch (dbErr) {
+      console.error("Mock challenge DB query failed:", dbErr);
+    }
+    const chosen = filtered[Math.floor(Math.random() * filtered.length)];
+    return res.json({ prompt: chosen });
+  }
 
   try {
     const pastChallenges = await Challenge.find({ userId }).sort({ createdAt: -1 }).limit(10);
@@ -44,6 +72,50 @@ router.post('/complete', async (req, res) => {
     // Get existing badge names to avoid duplicates
     const existingBadges = await Badge.find({ userId }).select('name');
     const badgeNames = existingBadges.map(b => b.name);
+
+    if (isMock) {
+      let badgeData = {
+        name: "Savings Sentinel",
+        icon: "🛡️",
+        description: "Awarded for keeping a close watch on your spending habits."
+      };
+      const promptLower = (challenge.prompt || "").toLowerCase();
+      if (promptLower.includes("cook") || promptLower.includes("food") || promptLower.includes("home")) {
+        badgeData = {
+          name: "Culinary Captain",
+          icon: "🍳",
+          description: "Awarded for saving money by cooking delicious meals at home."
+        };
+      } else if (promptLower.includes("subscription") || promptLower.includes("cancel")) {
+        badgeData = {
+          name: "Subscription Slasher",
+          icon: "✂️",
+          description: "Awarded for cancelling unused plans and cutting overheads."
+        };
+      } else if (promptLower.includes("track") || promptLower.includes("spend")) {
+        badgeData = {
+          name: "Expense Tracker",
+          icon: "📊",
+          description: "Awarded for tracking your expenses meticulously."
+        };
+      } else if (promptLower.includes("budget") || promptLower.includes("save")) {
+        badgeData = {
+          name: "Budget Master",
+          icon: "💰",
+          description: "Awarded for mastering your budget and savings targets."
+        };
+      }
+      
+      const badge = new Badge({ 
+        userId, 
+        name: badgeData.name, 
+        icon: badgeData.icon, 
+        description: badgeData.description,
+        earnedAt: new Date()
+      });
+      await badge.save();
+      return res.json({ message: 'Challenge completed and badge earned!', badge });
+    }
 
     // Prompt AI to generate badge details
     const prompt = `Create a fun and creative badge for completing this financial challenge: "${challenge.prompt}".
