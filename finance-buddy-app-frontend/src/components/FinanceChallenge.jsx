@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5050';
+
 const FinanceChallenge = () => {
   const [challenge, setChallenge] = useState(null);
   const [generatedPrompt, setGeneratedPrompt] = useState('');
@@ -13,7 +15,7 @@ const FinanceChallenge = () => {
   useEffect(() => {
     const fetchChallenge = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:5050/api/challenge/active/${userId}`, {
+        const { data } = await axios.get(`${API_URL}/api/challenge/active/${userId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (data) setChallenge(data);
@@ -29,7 +31,7 @@ const FinanceChallenge = () => {
   try {
     setGeneratedPrompt('');
     const { data } = await axios.post(
-      'http://localhost:5050/api/challenge/generate',
+      `${API_URL}/api/challenge/generate`,
       { userId, currentPrompt: generatedPrompt },  // <-- Pass current prompt to avoid repeat
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -50,7 +52,7 @@ const FinanceChallenge = () => {
   const takeUpChallenge = async () => {
     try {
       const { data } = await axios.post(
-        'http://localhost:5050/api/challenge/takeup',
+        `${API_URL}/api/challenge/takeup`,
         { userId, prompt: generatedPrompt },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -66,7 +68,7 @@ const FinanceChallenge = () => {
   const completeChallenge = async () => {
     try {
       const { data } = await axios.post(
-        'http://localhost:5050/api/challenge/complete',
+        `${API_URL}/api/challenge/complete`,
         { userId, challengeId: challenge._id },
         { headers: { Authorization: `Bearer ${token}` } }
       );

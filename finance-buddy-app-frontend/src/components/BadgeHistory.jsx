@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5050';
+
 const BadgeHistory = () => {
   const [history, setHistory] = useState({ challenges: [], badges: [] });
   const userId = localStorage.getItem("userId");
@@ -10,7 +12,7 @@ const BadgeHistory = () => {
     const fetchHistory = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:5050/api/challenge/history/${userId}`,
+          `${API_URL}/api/challenge/history/${userId}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }

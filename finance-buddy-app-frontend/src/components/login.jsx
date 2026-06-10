@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../css/login.css'; // ✅ Import the CSS file here
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5050';
+
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -13,7 +15,7 @@ const Login = () => {
     e.preventDefault();
     setErrorMsg('');
     try {
-      const res = await axios.post('http://localhost:5050/api/auth/login', {
+      const res = await axios.post(`${API_URL}/api/auth/login`, {
         email,
         password
       });

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../css/quizhistory.css'; 
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5050';
+
 const QuizHistory = ({ userId }) => {
   const [history, setHistory] = useState([]);
 
@@ -12,7 +14,7 @@ const QuizHistory = ({ userId }) => {
         if (!userId || !token) return;
 
         const { data } = await axios.get(
-          `http://localhost:5050/api/quiz/history/${userId}`,
+          `${API_URL}/api/quiz/history/${userId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

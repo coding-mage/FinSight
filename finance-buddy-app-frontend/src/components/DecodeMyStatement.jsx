@@ -5,6 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/decodemystatement.css';
 import 'chart.js/auto'; // Automatically register all Chart.js components
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5050';
+
 const DecodeMyStatement = () => {
   const [file, setFile] = useState(null);
   const [uploads, setUploads] = useState([]);
@@ -52,7 +54,7 @@ const DecodeMyStatement = () => {
 
   const fetchUploads = async () => {
     try {
-      const res = await axios.get('http://localhost:5050/api/statements', {
+      const res = await axios.get(`${API_URL}/api/statements`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -71,7 +73,7 @@ const DecodeMyStatement = () => {
     formData.append('statement', file);
     
     try {
-      const res = await axios.post('http://localhost:5050/api/statements/upload', formData, {
+      const res = await axios.post(`${API_URL}/api/statements/upload`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`
@@ -88,7 +90,7 @@ const DecodeMyStatement = () => {
 
   const fetchStatement = async id => {
     try {
-      const res = await axios.get(`http://localhost:5050/api/statements/${id}`, {
+      const res = await axios.get(`${API_URL}/api/statements/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -112,7 +114,7 @@ const DecodeMyStatement = () => {
   const fetchCashFlow = async id => {
     setCashFlowLoading(true);
     try {
-      const res = await axios.get(`http://localhost:5050/api/statements/${id}/cashflow`, {
+      const res = await axios.get(`${API_URL}/api/statements/${id}/cashflow`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -128,7 +130,7 @@ const DecodeMyStatement = () => {
   const fetchBudget = async id => {
     setBudgetLoading(true);
     try {
-      const res = await axios.get(`http://localhost:5050/api/statements/${id}/budget`, {
+      const res = await axios.get(`${API_URL}/api/statements/${id}/budget`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -150,7 +152,7 @@ const DecodeMyStatement = () => {
     setChatLoading(true);
 
     try {
-      const res = await axios.post(`http://localhost:5050/api/statements/${selectedUpload}/chat`, {
+      const res = await axios.post(`${API_URL}/api/statements/${selectedUpload}/chat`, {
         message: chatInput
       }, {
         headers: {

@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Card, Button, Spinner, Modal } from 'react-bootstrap';
 import '../css/newswithimpact.css';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5050';
+
 
 const NewsWithImpact = () => {
   const [newsList, setNewsList] = useState([]);
@@ -18,7 +20,7 @@ const NewsWithImpact = () => {
       
       try {
         const { data } = await axios.get(
-          "http://localhost:5050/api/news/top-finance",
+          `${API_URL}/api/news/top-finance`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -58,7 +60,7 @@ const NewsWithImpact = () => {
   setImpactReport('');
   try {
     const { data } = await axios.post(
-      'http://localhost:5050/api/news/analyze',
+      `${API_URL}/api/news/analyze`,
       {
         title: article.title,
         description: article.description,

@@ -1,0 +1,28 @@
+{
+  "User": [
+    {
+      "name": "Meena",
+      "email": "meena@example.com",
+      "password": "$2a$10$Bo16XaoqzKPoUV77lzpxte08ddYEosBTRr1yDLCuMpyT8Flm4oWkW",
+      "region": "Telangana",
+      "_id": "mock_t4kuzqczj",
+      "createdAt": "2026-06-10T09:49:59.835Z"
+    },
+    {
+      "name": "Meena Ramachandran Kandimadai",
+      "email": "meenakandimadai@gmail.com",
+      "password": "$2a$10$DzxmiELoH136AejPptMFsuXvlkaoIlp9z09yw06muWLqmoWFEqae2",
+      "region": "Telangana",
+      "_id": "mock_tff3qs44f",
+      "createdAt": "2026-06-10T09:55:31.018Z"
+    },
+    {
+      "name": "Meena Ramachandran Kandimadai",
+      "email": "meena.ramachandran.kandimadai@outlook.com",
+      "password": "$2a$10$Pct7y3KyFlgaYaNiS4q1.OAwaukKv9W1Eqz4Mkz4RxKPK2R/hEFe6",
+      "region": "Telangana",
+      "_id": "mock_k4geutqeq",
+      "createdAt": "2026-06-10T09:56:06.910Z"
+    }
+  ]
+}

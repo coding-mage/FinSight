@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import '../css/financequiz.css';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5050';
+
 const FinanceQuiz = () => {
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState([]);
@@ -26,7 +28,7 @@ const FinanceQuiz = () => {
       const userId = localStorage.getItem('userId');
 
       const { data } = await axios.post(
-        'http://localhost:5050/api/quiz/generate',
+        `${API_URL}/api/quiz/generate`,
         { userId, topic: topic.trim() || 'finance' },
         {
           headers: {
@@ -63,7 +65,7 @@ const FinanceQuiz = () => {
       );
 
       const { data } = await axios.post(
-        'http://localhost:5050/api/quiz/submit',
+        `${API_URL}/api/quiz/submit`,
         {
           userId,
           questions,

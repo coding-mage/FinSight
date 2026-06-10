@@ -3,6 +3,8 @@ import { Accordion, Card, Button, Form, Spinner, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import '../css/whatifsimulator.css';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5050';
+
 const WhatIfSimulator = () => {
   const [query, setQuery] = useState('');
   const [analysis, setAnalysis] = useState(null); // parsed JSON data
@@ -35,7 +37,7 @@ const WhatIfSimulator = () => {
 
     try {
       const res = await axios.post(
-        'http://localhost:5050/api/simulator/simulate',
+        `${API_URL}/api/simulator/simulate`,
         { scenario: query },
         {
           headers: {
