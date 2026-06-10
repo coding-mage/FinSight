@@ -35,6 +35,7 @@ const DecodeMyStatement = () => {
 
   useEffect(() => {
     fetchUploads();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Fetch data on tab changes
@@ -46,6 +47,7 @@ const DecodeMyStatement = () => {
         fetchBudget(selectedUpload);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab, selectedUpload]);
 
   const fetchUploads = async () => {
@@ -187,6 +189,7 @@ const DecodeMyStatement = () => {
     ]
   };
 
+  // eslint-disable-next-line no-unused-vars
   const renderStyledText = (text) => {
     if (!text) return '';
     const parts = text.split(/(\*\*.*?\*\*)/); // split by **...**
